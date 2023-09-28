@@ -1,13 +1,14 @@
 import { classes, style } from "typestyle";
 import { FlexRow } from "../Utils/FlexRow";
+import { SpacingProps, getSpacingClass } from "../Utils/SpacingUtil";
 
 const baseToolbarClass = style({
     display: 'flex',
     justifyContent: 'space-between',
 });
 
-interface ToolbarProps {
-    toolbarHeight: string,
+interface ToolbarProps extends SpacingProps {
+    height: string,
     position?: 'static' | 'fixed' | 'sticky'
     leftContent?: React.ReactNode,
     centerContent?: React.ReactNode,
@@ -17,13 +18,14 @@ interface ToolbarProps {
 
 export const Toolbar: React.FunctionComponent<ToolbarProps> = props => {
 
-    const { toolbarHeight, position, leftContent, centerContent, rightContent, className } = props;
+    const { height, position, leftContent, centerContent, rightContent, className } = props;
 
     const toolbarContainerClass = classes(
+        getSpacingClass(props),
         baseToolbarClass,
         className,
         style({
-            height: toolbarHeight,
+            height: height,
             position: position ? position : 'static',
         }),
     );
@@ -42,5 +44,6 @@ export const Toolbar: React.FunctionComponent<ToolbarProps> = props => {
                 {rightContent}
             </FlexRow>
         </FlexRow>
+
     )
 };
